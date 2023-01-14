@@ -4,12 +4,17 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^9.15.0",
+    "firebase-tools": "^11.20.0",
     "johnny-five": "^2.1.0"
-  }
+  },
+  "devDependencies": {
+    "firebase": "^9.15.0"
+  },
+  "type": "module"
 }
