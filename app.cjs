@@ -1,29 +1,29 @@
 var five = require("johnny-five");
-
 var admin = require("firebase-admin");
-
 var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-d0f44acec8.json");
+var firebaseDb = require("firebase-admin/database");
 
 var app = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://iot-project-8037c-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 
-var database = require("firebase-admin/database");
-
 // Initialize Firebase
-const db = database.getDatabase(app);
+const db = firebaseDb.getDatabase(app);
 
-// init
-var board = new five.Board();
-var ardxRef = db.ref();
+var board = new five.Board({
+    port: "COM4"
+});
+
+
+var firebaseDbRef = db.ref();
 
 // hardware objects with states
 var led1, led2, led3;
 var led1State = 0, led2State = 0, led3State = 0;  // 0: off, 1: on
 
 // reset firebase data
-ardxRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
+firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
 
 /**
  * called on board is ready
@@ -48,15 +48,15 @@ board.on("ready", function () {
  * register firebase events (node change)
  * */
 var listenEvent = function () {
-    ardxRef.child('led1').on('value', function (snapshot) {
+    firebaseDbRef.child('led1').on('value', function (snapshot) {
         changeLed(led1, snapshot.val(), 'led1');
     });
 
-    ardxRef.child('led2').on('value', function (snapshot) {
+    firebaseDbRef.child('led2').on('value', function (snapshot) {
         changeLed(led2, snapshot.val(), 'led2');
     });
 
-    ardxRef.child('led3').on('value', function (snapshot) {
+    firebaseDbRef.child('led3').on('value', function (snapshot) {
         changeLed(led3, snapshot.val(), 'led3');
     });
 };
