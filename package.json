@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.cjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "firebase-admin": "^11.4.1",
     "firebase-tools": "^11.20.0",
     "johnny-five": "^2.1.0"
   },

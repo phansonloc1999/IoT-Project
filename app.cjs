@@ -1,28 +1,22 @@
-import johnnyfive from "johnny-five";
-var five = johnnyfive
+var five = require("johnny-five");
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+var admin = require("firebase-admin");
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyAK_XiOdaE3NVAXdFd3pnDPn9OfH9di3U8",
-    authDomain: "iot-project-8037c.firebaseapp.com",
-    databaseURL: "https://iot-project-8037c-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "iot-project-8037c",
-    storageBucket: "iot-project-8037c.appspot.com",
-    messagingSenderId: "894430226762",
-    appId: "1:894430226762:web:48e105904fe33a0274f9b3"
-};
+var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-d0f44acec8.json");
+
+var app = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://iot-project-8037c-default-rtdb.asia-southeast1.firebasedatabase.app"
+});
+
+var database = require("firebase-admin/database");
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const db = database.getDatabase(app);
 
 // init
 var board = new five.Board();
-var ardxRef = new Firebase('https://iot-project-8037c.web.app/');
+var ardxRef = db.ref();
 
 // hardware objects with states
 var led1, led2, led3;
