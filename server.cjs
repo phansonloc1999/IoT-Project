@@ -1,6 +1,6 @@
 var five = require("johnny-five");
 var admin = require("firebase-admin");
-var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-d0f44acec8.json");
+var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-c535f01130.json");
 var firebaseDb = require("firebase-admin/database");
 
 var app = admin.initializeApp({
@@ -14,7 +14,6 @@ const db = firebaseDb.getDatabase(app);
 var board = new five.Board({
     port: "COM4"
 });
-
 
 var firebaseDbRef = db.ref();
 
@@ -79,3 +78,64 @@ var changeLed = function (led, value, tag) {
             break;
     }
 };
+
+const express = require('express')
+const webApp = express()
+const port = 8080
+
+webApp.get('/', (req, res) => {
+    res.sendFile('public/index.html', { root: __dirname })
+})
+
+webApp.get('/server.cjs', (req, res) => {
+    res.sendFile('./server.cjs', { root: __dirname })
+})
+
+webApp.get('/api/*/on', (req, res) => {
+    var led = null
+    switch (req.params[0]) {
+        case 'led1':
+            led = led1
+            led1State = 1
+            break;
+        case 'led2':
+            led2State = 1
+            led = led2
+            break;
+        case 'led3':
+            led3State = 1
+            led = led3
+            break;
+        default:
+            break;
+    }
+    changeLed(led, 1, req.params[0])
+    firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
+})
+
+webApp.get('/api/*/off', (req, res) => {
+    var led = null
+    switch (req.params[0]) {
+        case 'led1':
+            led = led1
+            led1State = 0
+            break;
+        case 'led2':
+            led = led2
+            led2State = 0
+            break;
+        case 'led3':
+            led = led3
+            led3State = 0
+            break;
+        default:
+            break;
+    }
+    changeLed(led, 0, req.params[0])
+    firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
+})
+
+
+webApp.listen(port, () => {
+    console.log(`Server listening on port ${port}`)
+})

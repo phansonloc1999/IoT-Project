@@ -5,10 +5,33 @@
 
   <h1>Trạng thái bật của các đèn</h1>
 
+  <script type="text/javascript">
+    function checkBoxClick(id) {
+      var checkBox = document.getElementById(id);
+      var checked = checkBox.checked;
+
+      var apiUrl = 'http://localhost:8080/api/' + id
+
+      if (checked) {
+        apiUrl = apiUrl + '/on'
+      }
+      else {
+        apiUrl = apiUrl + '/off'
+      }
+
+      fetch(apiUrl, { mode: "no-cors" })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    }
+  </script>
+
   <form action="/action_page.php">
-    <input type="checkbox" id="led1" name="led1" value="Đèn 1">
-    <input type="checkbox" id="led2" name="led2" value="Đèn 2">
-    <input type="checkbox" id="led3" name="led3" value="Đèn 3">
+    <input type="checkbox" id="led1" name="led1" value="Đèn 1" onclick="checkBoxClick(this.id)">
+    <label for="vehicle1">Led 1</label><br>
+    <input type="checkbox" id="led2" name="led2" value="Đèn 2" onclick="checkBoxClick(this.id)">
+    <label for="vehicle1">Led 2</label><br>
+    <input type="checkbox" id="led3" name="led3" value="Đèn 3" onclick="checkBoxClick(this.id)">
+    <label for="vehicle1">Led 3</label><br>
   </form>
 
 </body>

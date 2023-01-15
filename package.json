@@ -2,10 +2,10 @@
   "name": "iot-project",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.cjs"
+    "start": "node server.cjs"
   },
   "author": "",
   "license": "ISC",
