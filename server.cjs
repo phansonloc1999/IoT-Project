@@ -82,6 +82,14 @@ var changeLed = function (led, value, tag) {
 const express = require('express')
 const webApp = express()
 const port = 8080
+webApp.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store')
+    next()
+})
+
+webApp.listen(port, () => {
+    console.log(`Server listening on port ${port}`)
+})
 
 webApp.get('/', (req, res) => {
     res.sendFile('public/index.html', { root: __dirname })
@@ -111,6 +119,7 @@ webApp.get('/api/*/on', (req, res) => {
     }
     changeLed(led, 1, req.params[0])
     firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
+    res.send()
 })
 
 webApp.get('/api/*/off', (req, res) => {
@@ -133,9 +142,5 @@ webApp.get('/api/*/off', (req, res) => {
     }
     changeLed(led, 0, req.params[0])
     firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
-})
-
-
-webApp.listen(port, () => {
-    console.log(`Server listening on port ${port}`)
+    res.send()
 })
