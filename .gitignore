@@ -132,6 +132,9 @@ dist
 # firebase
 .firebase
 
-iot-project-8037c-55228667761f.json
+*.workspace
+*.json
+
 Project Backups
 .vs
+obj

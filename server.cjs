@@ -1,6 +1,6 @@
 var five = require("johnny-five");
 var admin = require("firebase-admin");
-var serviceAccount = require("./iot-project-8037c-55228667761f.json");
+var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-c535f01130.json");
 var firebaseDb = require("firebase-admin/database");
 
 var app = admin.initializeApp({
@@ -119,7 +119,7 @@ webApp.get('/api/*/on', (req, res) => {
     }
     changeLed(led, 1, req.params[0])
     firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
-    res.send()
+    res.send({})
 })
 
 webApp.get('/api/*/off', (req, res) => {
@@ -142,5 +142,5 @@ webApp.get('/api/*/off', (req, res) => {
     }
     changeLed(led, 0, req.params[0])
     firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
-    res.send()
+    res.send({})
 })
