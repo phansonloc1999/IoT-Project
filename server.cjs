@@ -1,6 +1,6 @@
 var five = require("johnny-five");
 var admin = require("firebase-admin");
-var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-c535f01130.json");
+var serviceAccount = require("./iot-project-8037c-firebase-adminsdk-ui916-607e2eef13.json");
 var firebaseDb = require("firebase-admin/database");
 
 var app = admin.initializeApp({

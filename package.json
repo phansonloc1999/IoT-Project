@@ -10,13 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2",
-    "firebase-admin": "^11.4.1",
-    "firebase-tools": "^11.20.0",
+    "express": "^5.2.1",
+    "firebase-admin": "^13.7.0",
+    "firebase-tools": "^15.10.1",
     "johnny-five": "^2.1.0"
   },
   "devDependencies": {
-    "firebase": "^9.15.0"
+    "firebase": "^12.10.0"
   },
   "type": "module"
 }
