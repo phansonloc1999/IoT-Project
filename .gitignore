@@ -133,7 +133,7 @@ dist
 .firebase
 
 *.workspace
-*.json
+iot-project-8037c*.json
 
 Project Backups
 .vs

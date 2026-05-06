@@ -99,9 +99,9 @@ webApp.get('/server.cjs', (req, res) => {
     res.sendFile('./server.cjs', { root: __dirname })
 })
 
-webApp.get('/api/*/on', (req, res) => {
+webApp.get('/api/*led/on', (req, res) => {
     var led = null
-    switch (req.params[0]) {
+    switch (req.params["led"][0]) {
         case 'led1':
             led = led1
             led1State = 1
@@ -117,14 +117,14 @@ webApp.get('/api/*/on', (req, res) => {
         default:
             break;
     }
-    changeLed(led, 1, req.params[0])
+    changeLed(led, 1, req.params["led"][0]);
     firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
     res.send({})
 })
 
-webApp.get('/api/*/off', (req, res) => {
+webApp.get('/api/*led/off', (req, res) => {
     var led = null
-    switch (req.params[0]) {
+    switch (req.params["led"][0]) {
         case 'led1':
             led = led1
             led1State = 0
@@ -140,7 +140,7 @@ webApp.get('/api/*/off', (req, res) => {
         default:
             break;
     }
-    changeLed(led, 0, req.params[0])
+    changeLed(led, 0, req.params["led"][0]);
     firebaseDbRef.update({ 'led1': led1State, 'led2': led2State, 'led3': led3State });
     res.send({})
 })
